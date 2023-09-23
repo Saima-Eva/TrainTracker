@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Train Tracker</title>
+        <style>
+            .center{
+                margin: auto;
+                //float: right;
+                width: 30%;
+                //border: 3px solid black;
+                padding: 10px;
+            }
+            
+            input[type=text],input[type=password],select,input[type=button]{
+                width: 100%;
+                padding: 10px 0px;
+            }
+            body{
+                margin: 50px;
+                background-color: floralwhite;
+            }
+            
+        </style>
+    </head>
+    <script type="text/javascript">
+        xmlhttp = new XMLHttpRequest();
+        function showHint() {
+            str=document.getElementById('emailText').value;
+            xmlhttp.onreadystatechange = function() {
+
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    //alert(xmlhttp.responseText);
+
+                    m=document.getElementById("txtHint");
+                    m.innerHTML=xmlhttp.responseText;
+                }
+            };
+            var url="server.php?email="+str;
+            //alert(url);
+            xmlhttp.open("GET", url, true);
+            xmlhttp.send();
+
+        }
+        
+        function valFname(elm) {
+            var fn = document.frm.firstname.value;
+            var msg = document.getElementById("fn");
+            if (fn.length < 2) {
+                //msg.innerHTML="invalid";
+                //msg.style.color="red";
+                return false;
+            } else {
+                //msg.innerHTML="valid";
+                //msg.style.color="green";
+                return true;
+            }
+        }
+
+        function valLname(elm) {
+            var fn = document.frm.lastname.value;
+            var msg = document.getElementById("ln");
+            if (fn.length < 0) {
+                //msg.innerHTML="invalid";
+                //msg.style.color="red";
+                return false;
+            } else {
+                //msg.innerHTML="valid";
+                //msg.style.color="green";
+                return true;
+            }
+        }
+
+        function valPass(elm) {
+            var p = document.frm.password.value;
+            var cp = document.frm.cpassword.value;
+            var msg = document.getElementById("pass");
+            if (p == cp) {
+                msg.innerHTML = "Password matched";
+                msg.style.color = "green";
+                return true;
+            } else {
+                msg.innerHTML = "Password didn't match";
+                msg.style.color = "red";
+                return false;
+            }
+        }
+
+        function valEmail(elm) {
+            var mail = document.frm.email.value;
+            var a = mail.indexOf("@");
+            var b = mail.indexOf(".com");
+            var msg = document.getElementById("em");
+            if (a > 0 && b > a) {
+                msg.innerHTML = "valid";
+                msg.style.color = "green";
+				showHint();
+                return true;
+            } else {
+                msg.innerHTML = "invalid";
+                msg.style.color = "red";
+                return false;
+            }
+        }
+
+        function sub(elm) {
+            if (valEmail() == true && valFname() == true && valLname() == true && valPass() == true)
+                document.frm.submit();
+            else if (valEmail() == false || valFname() == false || valLname() == false || valPass() == false)
+                document.getElementById("subm").innerHTML = "check all the field";
+        }
+</script>
+    <body>
+        
+        <div class="center"> 
+            <form name="frm" action="signup_old.php" method="post">
+                First name:<br />
+                <input type="text" placeholder="Enter first name" onkeyup="valFname(this)" name="firstname" required><br /> <span id="fn"></span><br />
+
+                Last name:<br />
+                <input type="text" placeholder="Enter last name" onkeyup="valLname(this)" name="lastname" required><br /> <span id="ln"></span><br />
+
+                Email:<br />
+                <input type="text" placeholder="Enter email address" onkeyup="valEmail(this)" name="email" id="emailText" required><span id="txtHint"></span><br /> <span id="em"></span><br />
+
+                <select name="gender">
+                    <option value="" selected>Select</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select><br><br>
+
+                Password:<br>
+                <input type="password" placeholder="Enter password" name="password" required><br/><br/>
+
+                Confirm Password:<br>
+                <input type="password" placeholder="Confirm password" onkeyup="valPass(this)" name="cpassword" required><br /> <span id="pass"></span><br />
+
+
+                <input type="button" onclick="sub(this)" value="Sign Up"><span id="subm"><br /> </span><br />
+            </form>
+        </div>
+        
+        
+    </body>
+</html>

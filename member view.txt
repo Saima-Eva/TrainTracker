@@ -1,0 +1,17 @@
+<div class="AB" style="background-color:black;color:white;padding:3px;">
+  <h2> <img src="<?php echo $pic[0]->ulr; ?>" align="Left" alt="Man" 
+  style="width:42px;height:42px;"> <span><?php echo $json[0]->lastname; ?></span> 
+ <a href="viewProfile.php"> <button align="right" 
+ type="button" class="w3-btn w3-yellow w3-large" >
+ View Profile <i class="w3-margin-left fa fa-view"></i></button></a>
+  <span style="float:right;width:20%;">
+<!--
+  <?php
+	echo date("l").",";
+	echo date("d-m-y");
+  ?>
+--><input type="text" name="search" id="search" onkeyup="showHint()">
+      </span>
+  </h2>
+  
+</div>

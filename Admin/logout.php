@@ -1,0 +1,10 @@
+<?php
+session_start();
+if($_SESSION['id']){
+    $_SESSION['id']=false;
+    $_SESSION['name']="";
+    header('location:adminSignin.html');
+}
+else
+    header('location:adminSignin.html');
+?>
